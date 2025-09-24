@@ -2,26 +2,38 @@
 
 import React, { useState } from "react";
 import { Mail, Lock, Eye, EyeOff, User, ArrowRight } from "lucide-react";
+import { useAuth } from "@/lib/AuthContext";
+import { useRouter } from "next/navigation";
 
 export default function SignUp({ onSwitch }) {
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirm, setShowConfirm] = useState(false);
+  const { signUp } = useAuth();
+  const router = useRouter();
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (password !== confirm) {
       alert("Passwords do not match!");
       return;
     }
+
     setLoading(true);
-    await new Promise((res) => setTimeout(res, 1500));
+    try {
+      await signUp(email, password, name);
+      alert("Check your email to confirm your account!");
+      router.push("/auth"); // redirect to sign-in page
+    } catch (err) {
+      alert(err.message);
+    }
     setLoading(false);
-    alert("Account created successfully!");
   };
 
   return (
@@ -102,12 +114,12 @@ export default function SignUp({ onSwitch }) {
             type="submit"
             className="w-full group relative overflow-hidden rounded-xl border border-white/30 px-8 py-3 text-lg font-semibold text-white transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-[0_0_25px_rgba(99,62,238,0.8)] flex items-center justify-center"
           >
-            <span className="absolute inset-0 bg-gradient-to-tr from-indigo-700 via-blue-500 to-sky-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></span>
+            <span className="absolute inset-0 bg-gradient-to-tr from-violet-700 via-indigo-700 to-blue-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></span>
             <span className="relative z-10 flex items-center gap-2">
               {loading ? (
                 <>
                   <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                  Submitting...
+                  Creating...
                 </>
               ) : (
                 <>

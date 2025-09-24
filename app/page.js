@@ -2,12 +2,15 @@
 "use client";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation"; // <-- Add this import
 
 export default function LandingPage() {
+  const router = useRouter();
   return (
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden">
       {/* Background */}
-      
+
 
       {/* Content Grid */}
       <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 px-6 py-16 md:grid-cols-2">
@@ -64,10 +67,12 @@ export default function LandingPage() {
             transition={{ delay: 1.8, duration: 0.8, type: "spring" }}
             className="mt-10"
           >
-            <button className="group relative overflow-hidden rounded-xl border border-white/30 px-8 py-3 text-lg font-semibold text-white transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-[0_0_25px_rgba(99,62,238,0.8)]">
-              <span className="absolute inset-0 bg-gradient-to-tr from-indigo-700 via-blue-500 to-sky-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></span>
-              <span className="relative z-10">Get Started</span>
-            </button>
+            <Link href="/auth">
+              <button className="group relative overflow-hidden rounded-xl border border-white/30 px-8 py-3 text-lg font-semibold text-white transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-[0_0_25px_rgba(99,62,238,0.8)]">
+                <span className="absolute inset-0 bg-gradient-to-tr from-violet-700 via-indigo-700 to-blue-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></span>
+                <span className="relative z-10">Get Started</span>
+              </button>
+            </Link>
           </motion.div>
         </motion.div>
       </div>
