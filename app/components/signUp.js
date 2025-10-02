@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Mail, Lock, Eye, EyeOff, User, ArrowRight } from "lucide-react";
+import { Mail, Lock, Eye, EyeOff, User, ArrowRight, AlertCircle, CheckCircle2 } from "lucide-react";
 import { useAuth } from "@/lib/AuthContext";
 import { useRouter } from "next/navigation";
 
@@ -16,22 +16,43 @@ export default function SignUp({ onSwitch }) {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
+
+  // Password validation function
+  const validatePassword = (pwd) => {
+    const errors = [];
+    if (pwd.length < 8) errors.push("At least 8 characters");
+    if (!/[A-Z]/.test(pwd)) errors.push("At least 1 uppercase letter");
+    if (!/[0-9]/.test(pwd)) errors.push("At least 1 number");
+    if (!/[!@#$%^&*(),.?":{}|<>]/.test(pwd)) errors.push("At least 1 special character");
+    return errors;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError(null);
+    setSuccess(null);
+
+    const pwdErrors = validatePassword(password);
+    if (pwdErrors.length > 0) {
+      setError(`Password must include: ${pwdErrors.join(", ")}`);
+      return;
+    }
 
     if (password !== confirm) {
-      alert("Passwords do not match!");
+      setError("Passwords do not match!");
       return;
     }
 
     setLoading(true);
     try {
       await signUp(email, password, name);
-      alert("Check your email to confirm your account!");
-      router.push("/auth"); // redirect to sign-in page
+      setSuccess("Account created! Check your email to confirm your account.");
+      setTimeout(() => router.push("/auth"), 2000); // redirect after a short delay
     } catch (err) {
-      alert(err.message);
+      console.error("Signup error:", err);
+      setError(err.message || "Something went wrong. Please try again.");
     }
     setLoading(false);
   };
@@ -109,10 +130,25 @@ export default function SignUp({ onSwitch }) {
             </button>
           </div>
 
+          {/* Error / Success Message */}
+          {error && (
+            <div className="flex items-start gap-2 text-red-400 text-sm mt-2">
+              <AlertCircle size={18} className="mt-0.5" />
+              <span>{error}</span>
+            </div>
+          )}
+          {success && (
+            <div className="flex items-start gap-2 text-green-400 text-sm mt-2">
+              <CheckCircle2 size={18} className="mt-0.5" />
+              <span>{success}</span>
+            </div>
+          )}
+
           {/* Submit */}
           <button
             type="submit"
-            className="w-full group relative overflow-hidden rounded-xl border border-white/30 px-8 py-3 text-lg font-semibold text-white transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-[0_0_25px_rgba(99,62,238,0.8)] flex items-center justify-center"
+            disabled={loading}
+            className="w-full group relative overflow-hidden rounded-xl border border-white/30 px-8 py-3 text-lg font-semibold text-white transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-[0_0_25px_rgba(99,62,238,0.8)] flex items-center justify-center disabled:opacity-60 disabled:cursor-not-allowed"
           >
             <span className="absolute inset-0 bg-gradient-to-tr from-violet-700 via-indigo-700 to-blue-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></span>
             <span className="relative z-10 flex items-center gap-2">

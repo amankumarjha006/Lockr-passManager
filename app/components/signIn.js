@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Mail, Lock, Eye, EyeOff, ArrowRight } from "lucide-react";
+import { Mail, Lock, Eye, EyeOff, ArrowRight, AlertCircle } from "lucide-react";
 import { useAuth } from "@/lib/AuthContext";
 import { useRouter } from "next/navigation";
 
@@ -13,15 +13,29 @@ export default function SignIn({ onSwitch }) {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null); // <-- new error state
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError(null); // reset error
     setLoading(true);
     try {
       await signIn(email, password);
-      router.push("/dashboard"); // redirect after login
+      router.push("/dashboard");
     } catch (err) {
-      alert(err.message);
+      console.error("Sign in error:", err);
+
+      // You can customize messages based on err.message
+      let message = "Something went wrong. Please try again.";
+      if (err.message?.includes("Invalid login credentials")) {
+        message = "Invalid email or password. Please check and try again.";
+      } else if (err.message?.includes("Email not confirmed")) {
+        message = "Please verify your email before signing in.";
+      } else if (err.message?.includes("Missing")) {
+        message = "Please fill in all fields.";
+      }
+
+      setError(message);
     }
     setLoading(false);
   };
@@ -65,10 +79,19 @@ export default function SignIn({ onSwitch }) {
           </button>
         </div>
 
+        {/* Error Message */}
+        {error && (
+          <div className="flex items-center gap-2 text-red-400 text-sm mt-2">
+            <AlertCircle size={18} />
+            <span>{error}</span>
+          </div>
+        )}
+
         {/* Submit */}
         <button
           type="submit"
-          className="w-full group relative overflow-hidden rounded-xl border border-white/30 px-8 py-3 text-lg font-semibold text-white transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-[0_0_25px_rgba(99,62,238,0.8)] flex items-center justify-center"
+          disabled={loading}
+          className="w-full group relative overflow-hidden rounded-xl border border-white/30 px-8 py-3 text-lg font-semibold text-white transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-[0_0_25px_rgba(99,62,238,0.8)] flex items-center justify-center disabled:opacity-60 disabled:cursor-not-allowed"
         >
           <span className="absolute inset-0 bg-gradient-to-tr from-violet-700 via-indigo-700 to-blue-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></span>
           <span className="relative z-10 flex items-center gap-2">

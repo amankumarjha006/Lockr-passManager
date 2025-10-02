@@ -28,10 +28,11 @@ export default function RootLayout({ children }) {
       <link rel="icon" href="/logo.png" />
       </head>
       <body >
-        <div className="absolute inset-0 -z-10 h-full w-full [background:radial-gradient(125%_125%_at_50%_10%,#000_40%,#4867ff)]"></div>
+        <div className="fixed inset-0 -z-10 h-full w-full [background:radial-gradient(125%_125%_at_50%_10%,#000_40%,#4867ff)]"></div>
         <AuthProvider>
         {children}
         </AuthProvider>
+        
       </body>
     </html>
   );
