@@ -110,7 +110,7 @@ export default function SignIn({ onSwitch }) {
       </form>
 
       <p className="text-gray-400 mt-6 text-center">
-        Don't have an account?{" "}
+        {"Don't have an account?"}{" "}
         <button onClick={onSwitch} className="text-blue-400 font-semibold hover:text-blue-300 transition">
           Sign Up
         </button>
