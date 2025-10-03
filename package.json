@@ -3,11 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build --turbopack",
+    "dev": "next dev",
+    "build": "next build --no-turbo",
     "start": "next start",
     "lint": "eslint"
   },
+  "engines": {
+  "node": "22.15.0"
+},
   "dependencies": {
     "@supabase/supabase-js": "^2.57.4",
     "crypto-js": "^4.2.0",
@@ -25,4 +28,5 @@
     "eslint-config-next": "15.5.4",
     "tailwindcss": "^4"
   }
+  
 }
