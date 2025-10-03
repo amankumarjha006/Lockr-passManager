@@ -12,7 +12,7 @@ const orbitron = Orbitron({
   weight: ["400", "500"],
 });
 
-// Delete Account Button (client-only)
+// Delete Account Button (links to /delete)
 function DeleteButton() {
   const [mounted, setMounted] = useState(false);
 
@@ -28,7 +28,10 @@ function DeleteButton() {
   if (!mounted) return null;
 
   return (
-    <button className="flex items-center gap-2 px-4 py-2 hover:bg-gray-700 transition text-red-400">
+    <Link
+      href="/delete"
+      className="flex items-center gap-2 px-4 py-2 hover:bg-gray-700 transition text-red-400"
+    >
       <lord-icon
         src="https://cdn.lordicon.com/xyfswyxf.json"
         trigger="hover"
@@ -36,7 +39,7 @@ function DeleteButton() {
         style={{ width: "20px", height: "20px" }}
       ></lord-icon>
       Delete Account
-    </button>
+    </Link>
   );
 }
 
@@ -85,7 +88,7 @@ export default function Navbar() {
             {mounted && (
               <>
                 <button
-                  className="flex items-center gap-2    hover:text-cyan-500  transition"
+                  className="flex items-center gap-2 hover:text-cyan-500 transition"
                   onClick={() => setDropdownOpen(!dropdownOpen)}
                 >
                   <User size={18} /> Profile

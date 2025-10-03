@@ -2,7 +2,7 @@
 
 import { useAuth } from "@/lib/AuthContext"; // your custom auth context
 import { LogOut } from "lucide-react";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from 'react-toastify';
 import { useRouter } from "next/navigation";
 
 export default function SignOut() {

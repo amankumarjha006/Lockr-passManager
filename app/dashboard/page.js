@@ -3,9 +3,10 @@ import { useEffect, useState } from "react";
 import { Inter, Orbitron } from "next/font/google";
 import Image from "next/image";
 import { Eye, EyeOff, Copy } from "lucide-react";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { supabase } from "@/lib/supabaseClient";
+import ProtectedRoute from "../components/ProtectedRoute";
 
 const inter = Inter({ subsets: ["latin"] });
 const orbitron = Orbitron({ subsets: ["latin"], weight: ["400", "500"] });
@@ -117,7 +118,7 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <>
+    <ProtectedRoute>
       <ToastContainer
         position="bottom-center"
         autoClose={5000}
@@ -215,7 +216,6 @@ export default function Dashboard() {
         <h2 className="flex justify-center items-center gap-3 text-xl md:text-2xl font-semibold text-center text-white mb-4 tracking-wide">
           Your Passwords
         </h2>
-
         <div className="overflow-x-auto rounded-xl shadow-2xl shadow-black/50 bg-black/50 backdrop-blur-lg border border-blue-700">
           <table className="w-full min-w-[750px] table-fixed border-separate border-spacing-0">
             <thead className="bg-gradient-to-r from-blue-500 via-indigo-700 to-cyan-800 text-white">
@@ -325,6 +325,6 @@ export default function Dashboard() {
           </table>
         </div>
       </div>
-    </>
+    </ProtectedRoute>
   );
 }
