@@ -1,86 +1,54 @@
-Lockr – Password Manager
+🔒 Lockr Password Manager
 
-This is a personal password manager project built with Next.js and Supabase.
-⚠️ Disclaimer: This is not a professional website and is only a project for learning and practice.
+Lockr is a fast, secure, and user-friendly password manager for safely storing and managing your passwords.
 
-Features
+⚠️ Note: Encryption is not yet implemented, but your data is securely stored in Supabase, and the app is extremely fast!
 
-Save and manage website credentials securely.
+🌐 Visit Lockr on Vercel
 
-Encrypt passwords before storing them (server-side).
+✨ Features
 
-Account authentication with Supabase.
+✅ Store and organize all your passwords in one place
 
-Protected routes – only signed-in users can access dashboard or delete account.
+⚡ Fast, responsive interface
 
-Delete account functionality with password verification.
+🔒 Secure backend powered by Supabase
 
-Technologies Used
+🌍 Accessible anywhere (deployed on Vercel)
 
-Next.js – React framework with App Router.
+🎨 User-friendly UI
 
-Tailwind CSS – Styling.
+🛠 Tech Stack
+Layer	Technology
+Frontend	React / Next.js
+Backend	Supabase
+Deployment	Vercel
+🚀 Usage
 
-Supabase – Database & Authentication.
+Go to Lockr
 
-Lucide React – Icons.
+Sign up or log in
 
-React Toastify – Notifications.
+Add and manage your passwords
 
-JavaScript / TypeScript
+Your data is securely saved in Supabase
 
-Getting Started (Local Development)
-# Install dependencies
-npm install
-# or
-yarn install
+🌟 Future Plans
 
-# Run the development server
-npm run dev
-# or
-yarn dev
+Implement encryption 🔐
 
+Add a password generator
 
-Open http://localhost:3000
- to see the app in your browser.
-Start editing pages in the app folder – hot reload updates automatically.
+Enable multi-device sync
 
-Environment Variables
+Improve UI/UX with folders, tags, and better organization
 
-Create a .env.local file in your project root:
+🤝 Contributing
 
-NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
-SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
+Contributions are welcome!
 
+Fork the repo
 
-NEXT_PUBLIC_* keys are safe for the frontend.
+Create a branch for your feature or fix
 
-SUPABASE_SERVICE_ROLE_KEY must never be exposed to the client.
-
-Deployment
-
-The easiest way to deploy is using Vercel
-:
-
-Push your code to GitHub.
-
-Import your repository in Vercel.
-
-Add the environment variables in Vercel Project Settings → Environment Variables.
-
-Click Deploy.
-
-Attributions
-
-Icons: Lucide
-
-Notifications: React Toastify
-
-Fonts: Google Fonts
-
-Database/Auth: Supabase
-
-License
-
-This project is for educational purposes only. All rights reserved by Aman Kumar Jha.
+Submit a pull request
